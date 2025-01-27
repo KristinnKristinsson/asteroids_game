@@ -2,14 +2,13 @@
 # the open-source pygame library
 # throughout this file
 import pygame
-import constants
 from constants import *
-import player
+from player import Player
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    triangle_player = player.Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 20, 0)
+    triangle_player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     fps = pygame.time.Clock()
     dt = 0
     while True:
