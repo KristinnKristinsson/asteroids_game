@@ -6,6 +6,7 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 def main():
     pygame.init()
@@ -16,6 +17,8 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (updatable, drawable, asteroids)
     AsteroidField.containers = (updatable)
+    Shot.containers = (updatable, drawable)
+
     ast_field = AsteroidField()
     triangle_player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     fps = pygame.time.Clock()
@@ -31,9 +34,15 @@ def main():
         
         for obj in updatable:
             obj.update(dt)
+        for asteroid in asteroids:
+            if triangle_player.collision(asteroid):
+                print("Game Over!")
+                pygame.time.delay(500)
+                pygame.quit()
         for obj in drawable:
-            obj.draw(screen)
-        
+            obj.draw(screen) 
+            
+
         pygame.display.flip()
         fps.tick(60)
         dt = (fps.tick(60)/1000)
