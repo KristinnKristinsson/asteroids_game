@@ -34,6 +34,8 @@ def main():
         
         for obj in updatable:
             obj.update(dt)
+            
+            print(triangle_player.cooldown)
         for asteroid in asteroids:
             if triangle_player.collision(asteroid):
                 print("Game Over!")
