@@ -14,10 +14,11 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
     Player.containers = (updatable, drawable)
     Asteroid.containers = (updatable, drawable, asteroids)
     AsteroidField.containers = (updatable)
-    Shot.containers = (updatable, drawable)
+    Shot.containers = (updatable, drawable, shots)
 
     ast_field = AsteroidField()
     triangle_player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
@@ -34,13 +35,15 @@ def main():
         
         for obj in updatable:
             obj.update(dt)
-            
-            print(triangle_player.cooldown)
         for asteroid in asteroids:
             if triangle_player.collision(asteroid):
                 print("Game Over!")
                 pygame.time.delay(500)
                 pygame.quit()
+            for shot in shots:
+                if asteroid.collision(shot):
+                    asteroid.split(dt)
+                    shot.kill()
         for obj in drawable:
             obj.draw(screen) 
             
